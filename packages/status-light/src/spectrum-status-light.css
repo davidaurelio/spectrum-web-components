@@ -112,7 +112,7 @@ THIS FILE IS MACHINE GENERATED. DO NOT EDIT */
         var(--spectrum-global-dimension-size-600)
     );
 }
-:host([dir]) {
+:host([size]) {
     --spectrum-statuslight-info-padding-y: var(
         --spectrum-global-dimension-size-65
     ); /* .spectrum-StatusLight */
@@ -124,7 +124,7 @@ THIS FILE IS MACHINE GENERATED. DO NOT EDIT */
         var(--spectrum-statuslight-info-padding-y) + 1px
     );
 }
-:host([dir]) {
+:host([size]) {
     align-items: flex-start;
     box-sizing: border-box;
     display: flex;
@@ -157,7 +157,7 @@ THIS FILE IS MACHINE GENERATED. DO NOT EDIT */
 :host([variant='neutral']) {
     font-style: italic; /* .spectrum-StatusLight--neutral */
 }
-:host([dir]) {
+:host([size]) {
     color: var(
         --spectrum-statuslight-m-info-text-color,
         var(--spectrum-alias-text-color)

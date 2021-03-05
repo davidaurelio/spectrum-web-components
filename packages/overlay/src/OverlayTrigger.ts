@@ -12,7 +12,7 @@ governing permissions and limitations under the License.
 
 import {
     html,
-    LitElement,
+    SpectrumElement,
     property,
     CSSResultArray,
     TemplateResult,
@@ -48,7 +48,7 @@ type closeOverlay =
  * @fires sp-opened - Announces that the overlay has been opened
  * @fires sp-closed - Announces that the overlay has been closed
  */
-export class OverlayTrigger extends LitElement {
+export class OverlayTrigger extends SpectrumElement {
     private closeClickOverlay?: Promise<() => void>;
     private closeLongpressOverlay?: Promise<() => void>;
     private closeHoverOverlay?: Promise<() => void>;

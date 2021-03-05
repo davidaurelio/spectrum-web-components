@@ -386,6 +386,14 @@ THIS FILE IS MACHINE GENERATED. DO NOT EDIT */
             var(--spectrum-button-primary-texticon-border-size)
     );
 }
+:host(:dir(ltr)) {
+    padding-left: var(
+        --spectrum-button-primary-textonly-padding-left-adjusted
+    ); /* [dir=ltr] .spectrum-Button */
+    padding-right: var(
+        --spectrum-button-primary-textonly-padding-right-adjusted
+    );
+}
 :host([dir='ltr']) {
     padding-left: var(
         --spectrum-button-primary-textonly-padding-left-adjusted
@@ -393,6 +401,14 @@ THIS FILE IS MACHINE GENERATED. DO NOT EDIT */
     padding-right: var(
         --spectrum-button-primary-textonly-padding-right-adjusted
     );
+}
+:host(:dir(rtl)) {
+    padding-left: var(
+        --spectrum-button-primary-textonly-padding-right-adjusted
+    );
+    padding-right: var(
+        --spectrum-button-primary-textonly-padding-left-adjusted
+    ); /* [dir=rtl] .spectrum-Button */
 }
 :host([dir='rtl']) {
     padding-left: var(
@@ -421,11 +437,23 @@ THIS FILE IS MACHINE GENERATED. DO NOT EDIT */
     box-shadow: none; /* .spectrum-Button:hover,
    * .spectrum-Button:active */
 }
+:host(:dir(ltr)) ::slotted([slot='icon']) {
+    margin-left: calc(
+        -1 * (var(--spectrum-button-primary-textonly-padding-left-adjusted) -
+                    var(--spectrum-button-primary-padding-left-adjusted))
+    ); /* [dir=ltr] .spectrum-Button .spectrum-Icon */
+}
 :host([dir='ltr']) ::slotted([slot='icon']) {
     margin-left: calc(
         -1 * (var(--spectrum-button-primary-textonly-padding-left-adjusted) -
                     var(--spectrum-button-primary-padding-left-adjusted))
     ); /* [dir=ltr] .spectrum-Button .spectrum-Icon */
+}
+:host(:dir(rtl)) ::slotted([slot='icon']) {
+    margin-right: calc(
+        -1 * (var(--spectrum-button-primary-textonly-padding-left-adjusted) -
+                    var(--spectrum-button-primary-padding-left-adjusted))
+    ); /* [dir=rtl] .spectrum-Button .spectrum-Icon */
 }
 :host([dir='rtl']) ::slotted([slot='icon']) {
     margin-right: calc(
@@ -433,18 +461,34 @@ THIS FILE IS MACHINE GENERATED. DO NOT EDIT */
                     var(--spectrum-button-primary-padding-left-adjusted))
     ); /* [dir=rtl] .spectrum-Button .spectrum-Icon */
 }
+:host(:dir(ltr)) slot[name='icon'] + #label {
+    padding-left: var(
+        --spectrum-button-primary-texticon-icon-gap
+    ); /* [dir=ltr] .spectrum-Button .spectrum-Icon+.spectrum-Button-label */
+}
 :host([dir='ltr']) slot[name='icon'] + #label {
     padding-left: var(
         --spectrum-button-primary-texticon-icon-gap
     ); /* [dir=ltr] .spectrum-Button .spectrum-Icon+.spectrum-Button-label */
+}
+:host(:dir(rtl)) slot[name='icon'] + #label {
+    padding-right: var(
+        --spectrum-button-primary-texticon-icon-gap
+    ); /* [dir=rtl] .spectrum-Button .spectrum-Icon+.spectrum-Button-label */
 }
 :host([dir='rtl']) slot[name='icon'] + #label {
     padding-right: var(
         --spectrum-button-primary-texticon-icon-gap
     ); /* [dir=rtl] .spectrum-Button .spectrum-Icon+.spectrum-Button-label */
 }
+:host(:dir(ltr)) slot[name='icon'] + #label {
+    padding-right: 0; /* [dir=ltr] .spectrum-Button .spectrum-Icon+.spectrum-Button-label */
+}
 :host([dir='ltr']) slot[name='icon'] + #label {
     padding-right: 0; /* [dir=ltr] .spectrum-Button .spectrum-Icon+.spectrum-Button-label */
+}
+:host(:dir(rtl)) slot[name='icon'] + #label {
+    padding-left: 0; /* [dir=rtl] .spectrum-Button .spectrum-Icon+.spectrum-Button-label */
 }
 :host([dir='rtl']) slot[name='icon'] + #label {
     padding-left: 0; /* [dir=rtl] .spectrum-Button .spectrum-Icon+.spectrum-Button-label */

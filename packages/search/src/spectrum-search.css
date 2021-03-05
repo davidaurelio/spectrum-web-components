@@ -22,8 +22,14 @@ THIS FILE IS MACHINE GENERATED. DO NOT EDIT */
     display: inline-block; /* .spectrum-Search */
     position: relative;
 }
+:host(:dir(ltr)) #button {
+    right: 0; /* [dir=ltr] .spectrum-Search-clearButton */
+}
 :host([dir='ltr']) #button {
     right: 0; /* [dir=ltr] .spectrum-Search-clearButton */
+}
+:host(:dir(rtl)) #button {
+    left: 0; /* [dir=rtl] .spectrum-Search-clearButton */
 }
 :host([dir='rtl']) #button {
     left: 0; /* [dir=rtl] .spectrum-Search-clearButton */

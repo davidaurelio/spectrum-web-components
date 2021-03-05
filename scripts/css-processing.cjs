@@ -29,6 +29,7 @@ const postCSSPlugins = (resourcePath, toTS) => {
             stage: 2,
             features: {
                 'nesting-rules': true,
+                'dir-pseudo-class': false,
             },
         }),
         // minify the css with cssnano presets
