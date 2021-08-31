@@ -10,12 +10,8 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-// import our stylesheets
-// import './styles.css';
-
-// import the components we'll use in this page
-import '@spectrum-web-components/button/sp-button';
-import '@spectrum-web-components/field-label/sp-field-label';
-import '@spectrum-web-components/picker/sp-picker';
-import '@spectrum-web-components/menu/sp-menu';
-import '@spectrum-web-components/menu/sp-menu-item';
+import './core.js';
+import '../../express/theme-light.js';
+import '../../express/theme-dark.js';
+import '../../express/scale-medium.js';
+import '../../express/scale-large.js';
