@@ -40,7 +40,7 @@ THIS FILE IS MACHINE GENERATED. DO NOT EDIT */
     );
     --spectrum-textfield-texticon-border-size: var(
         --spectrum-textfield-m-texticon-border-size,
-        var(--spectrum-alias-border-size-thin)
+        var(--spectrum-alias-input-border-size)
     );
     --spectrum-textfield-texticon-text-line-height: var(
         --spectrum-textfield-m-texticon-text-line-height,
