@@ -33,9 +33,9 @@ import {
     FocusVisiblePolyfillMixin,
     ObserveSlotPresence,
 } from '@spectrum-web-components/shared';
-import { firstFocusableIn } from '@spectrum-web-components/shared/src/first-focusable-in.js';
 
 import styles from './dialog.css.js';
+import type { ActionButton } from '@spectrum-web-components/action-button';
 
 /**
  * @element sp-dialog
@@ -57,6 +57,9 @@ export class Dialog extends FocusVisiblePolyfillMixin(
     public static get styles(): CSSResultArray {
         return [styles, crossStyles];
     }
+
+    @query('.close-button')
+    closeButton?: ActionButton;
 
     @query('.content')
     private contentElement!: HTMLDivElement;
@@ -87,26 +90,6 @@ export class Dialog extends FocusVisiblePolyfillMixin(
 
     @property({ type: String, reflect: true })
     public size?: 's' | 'm' | 'l';
-
-    public focus(): void {
-        if (this.shadowRoot) {
-            const firstFocusable = firstFocusableIn(this.shadowRoot);
-            if (firstFocusable) {
-                if (firstFocusable.updateComplete) {
-                    firstFocusable.updateComplete.then(() =>
-                        firstFocusable.focus()
-                    );
-                    /* c8 ignore next 3 */
-                } else {
-                    firstFocusable.focus();
-                }
-                this.removeAttribute('tabindex');
-            }
-            /* c8 ignore next 3 */
-        } else {
-            super.focus();
-        }
-    }
 
     public close(): void {
         this.dispatchEvent(
@@ -192,6 +175,12 @@ export class Dialog extends FocusVisiblePolyfillMixin(
             this.dismissable = !this.mode;
         }
         return super.shouldUpdate(changes);
+    }
+
+    protected firstUpdated(changes: PropertyValues): void {
+        super.firstUpdated(changes);
+        this.tabIndex = 0;
+        this.setAttribute('role', 'dialog');
     }
 
     protected onContentSlotChange(): void {

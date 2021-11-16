@@ -76,6 +76,9 @@ export class DialogWrapper extends FocusVisiblePolyfillMixin(SpectrumElement) {
     @property({ type: String, reflect: true })
     public mode?: 'fullscreen' | 'fullscreenTakeover';
 
+    @property({ reflect: true })
+    public role?: 'dialog';
+
     @property({ type: String, reflect: true })
     public size?: 's' | 'm' | 'l';
 
@@ -113,6 +116,9 @@ export class DialogWrapper extends FocusVisiblePolyfillMixin(SpectrumElement) {
             /* c8 ignore next 3 */
         } else {
             super.focus();
+        }
+        if (this.shadowRoot.activeElement) {
+            this.removeAttribute('tabindex');
         }
     }
 
@@ -156,6 +162,17 @@ export class DialogWrapper extends FocusVisiblePolyfillMixin(SpectrumElement) {
         );
     }
 
+    protected handleSlotchange({
+        target,
+    }: Event & { target: HTMLSlotElement }): void {
+        const assignedElement = target.assignedElements();
+        if (assignedElement.length < 2) {
+            this.dialog.setAttribute('aria-describedby', 'dialog-description');
+        } else {
+            this.dialog.removeAttribute('aria-describedby');
+        }
+    }
+
     protected render(): TemplateResult {
         return html`
             ${this.underlay
@@ -174,6 +191,9 @@ export class DialogWrapper extends FocusVisiblePolyfillMixin(SpectrumElement) {
                     mode=${ifDefined(this.mode ? this.mode : undefined)}
                     size=${ifDefined(this.size ? this.size : undefined)}
                     @close=${this.close}
+                    aria-labelledby=${ifDefined(
+                        this.headline ? 'dialog-label' : undefined
+                    )}
                 >
                     ${this.hero
                         ? html`
@@ -193,10 +213,14 @@ export class DialogWrapper extends FocusVisiblePolyfillMixin(SpectrumElement) {
                         : html``}
                     ${this.headline
                         ? html`
-                              <h2 slot="heading">${this.headline}</h2>
+                              <h2 slot="heading" id="dialog-label">
+                                  ${this.headline}
+                              </h2>
                           `
                         : html``}
-                    <slot></slot>
+                    <div id="dialog-description">
+                        <slot @slotchange=${this.handleSlotchange}></slot>
+                    </div>
                     ${this.footer
                         ? html`
                               <div slot="footer">${this.footer}</div>
@@ -241,10 +265,14 @@ export class DialogWrapper extends FocusVisiblePolyfillMixin(SpectrumElement) {
     }
 
     protected updated(changes: PropertyValues<this>): void {
-        if (changes.has('open') && this.open) {
-            this.dialog.updateComplete.then(() => {
-                this.dialog.shouldManageTabOrderForScrolling();
-            });
+        if (changes.has('open')) {
+            if (this.open) {
+                this.dialog.updateComplete.then(() => {
+                    this.dialog.shouldManageTabOrderForScrolling();
+                });
+            } else {
+                this.tabIndex = 0;
+            }
         }
     }
 }
