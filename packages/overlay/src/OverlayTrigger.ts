@@ -15,8 +15,10 @@ import {
     html,
     LitElement,
     PropertyValues,
+    SpectrumElement,
     TemplateResult,
 } from '@spectrum-web-components/base';
+import '@spectrum-web-components/base';
 import { property } from '@spectrum-web-components/base/src/decorators.js';
 import type { LongpressEvent } from '@spectrum-web-components/action-button';
 import { firstFocusableIn } from '@spectrum-web-components/shared/src/first-focusable-in.js';
@@ -151,9 +153,9 @@ export class OverlayTrigger extends LitElement {
     }
 
     protected manageLongpressDescriptor(): void {
-        // get overlay trigger
-        const trigger = this.querySelector('[slot="trigger"]') as HTMLElement;
-
+        const trigger = this.querySelector(
+            '[slot="trigger"]'
+        ) as SpectrumElement;
         // get our current describedby attributes, if any
         const ariaDescribedby = trigger.getAttribute('aria-describedby');
         let descriptors = ariaDescribedby ? ariaDescribedby.split(/\s+/) : [];
@@ -168,10 +170,9 @@ export class OverlayTrigger extends LitElement {
                 this.longpressDescriptor.id = this._longpressId;
                 this.longpressDescriptor.slot = this._longpressId;
                 this.longpressDescriptor.innerHTML =
-                    'Long press for additional options';
+                    'Press Alt+Down Arrow for additional options';
             }
             this.appendChild(this.longpressDescriptor); // add descriptor to light DOM
-
             descriptors.push(this._longpressId);
         } else {
             // dispose longpressDescriptor if it exists already
@@ -262,6 +263,11 @@ export class OverlayTrigger extends LitElement {
         switch (event.type) {
             case 'mouseenter':
             case 'focusin':
+                // if (this.hasLongpressContent && this.longpressDescriptor) {
+                //     console.log("focus!");
+                //         this.longpressDescriptor.innerHTML =
+                //         'Press and hold for additional options';
+                // }
                 if (!this.open && this.hoverContent) {
                     this.open = 'hover';
                 }
@@ -273,6 +279,7 @@ export class OverlayTrigger extends LitElement {
                 }
                 return;
             case 'click':
+                //console.log("clikc");
                 if (this.clickContent) {
                     this.open = event.type;
                 } else if (this.closeHoverOverlay) {
@@ -280,6 +287,7 @@ export class OverlayTrigger extends LitElement {
                 }
                 return;
             case 'longpress':
+                //console.log("lawng");
                 if (this.longpressContent) {
                     this._longpressEvent = event;
                     this.open = event.type;
