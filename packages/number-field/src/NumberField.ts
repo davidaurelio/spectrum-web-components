@@ -346,6 +346,22 @@ export class NumberField extends TextfieldBase {
         super.onChange();
     }
 
+    private remapMultiByteCharacters: Record<string, string> = {
+        '１': '1',
+        '２': '2',
+        '３': '3',
+        '４': '4',
+        '５': '5',
+        '６': '6',
+        '７': '7',
+        '８': '8',
+        '９': '9',
+        '０': '0',
+        '、': ',',
+        '。': '.',
+        '％': '%',
+    };
+
     protected onInput(): void {
         if (this.indeterminate) {
             this.wasIndeterminate = true;
@@ -355,7 +371,11 @@ export class NumberField extends TextfieldBase {
                 ''
             );
         }
-        const { value, selectionStart } = this.inputElement;
+        const { value: originalValue, selectionStart } = this.inputElement;
+        const value = originalValue
+            .split('')
+            .map((char) => this.remapMultiByteCharacters[char] || char)
+            .join('');
         if (this.numberParser.isValidPartialNumber(value)) {
             const valueAsNumber = this.convertValueToNumber(value);
             if (!value && this.indeterminateValue) {
@@ -366,6 +386,7 @@ export class NumberField extends TextfieldBase {
                 this._value = this.validateInput(valueAsNumber);
             }
             this._trackingValue = value;
+            this.inputElement.value = value;
             return;
         }
         const currentLength = value.length;

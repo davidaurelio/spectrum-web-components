@@ -36,6 +36,32 @@ describe('NumberField - inputs', () => {
         }
     });
     describe('keystroke prevention', () => {
+        it('converts 2 byte characters, default', async () => {
+            const el = await getElFrom(html`
+                ${Default()}
+            `);
+            await elementUpdated(el);
+
+            el.focus();
+            await sendKeys({
+                type: '３、５６７、８９０。１',
+            });
+            await elementUpdated(el);
+            expect(el.formattedValue).to.equal('3,567,890.1');
+        });
+        it('converts 2 byte characters, percents', async () => {
+            const el = await getElFrom(html`
+                ${percents()}
+            `);
+            await elementUpdated(el);
+
+            el.focus();
+            await sendKeys({
+                type: '２４％',
+            });
+            await elementUpdated(el);
+            expect(el.formattedValue).to.equal('24%');
+        });
         it('prevents second "." in EN', async () => {
             const el = await getElFrom(html`
                 ${Default()}
