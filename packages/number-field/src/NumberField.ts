@@ -529,6 +529,7 @@ export class NumberField extends TextfieldBase {
                               this.readonly ||
                               (typeof this.max !== 'undefined' &&
                                   this.value === this.max)}
+                              ?quiet=${this.quiet}
                           >
                               <sp-icon-chevron75
                                   slot="icon"
@@ -544,6 +545,7 @@ export class NumberField extends TextfieldBase {
                               this.readonly ||
                               (typeof this.min !== 'undefined' &&
                                   this.value === this.min)}
+                              ?quiet=${this.quiet}
                           >
                               <sp-icon-chevron75
                                   slot="icon"
